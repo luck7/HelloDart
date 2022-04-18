@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:recipes/recipe_detail.dart';
 
 import 'recipe.dart';
 
@@ -45,10 +46,23 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: SafeArea(
         child: ListView.builder(
-            itemCount: Recipe.samples.length,
-            itemBuilder: (BuildContext context, int index) {
-              return buildRecipeCard(Recipe.samples[index]);
-            }),
+          itemCount: Recipe.samples.length,
+          itemBuilder: (BuildContext context, int index) {
+            return GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return RecipeDetail(recipe: Recipe.samples[index]);
+                    },
+                  ),
+                );
+              },
+              child: buildRecipeCard(Recipe.samples[index]),
+            );
+          },
+        ),
       ),
     );
   }
@@ -68,10 +82,9 @@ class _MyHomePageState extends State<MyHomePage> {
             Text(
               recipe.label,
               style: const TextStyle(
-                fontSize: 20.0,
-                fontWeight: FontWeight.w700,
-                fontFamily: 'Palatino'
-              ),
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.w700,
+                  fontFamily: 'Palatino'),
             ),
           ],
         ),
